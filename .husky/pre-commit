@@ -1,0 +1,9 @@
+# Run linting
+bun run lint
+
+# Run formatting check
+bun run format:check
+bun run format
+
+# Run tests
+bun test
