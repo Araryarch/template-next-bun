@@ -1,7 +1,3 @@
-Tentu! Saya akan memperbarui README tersebut dengan penjelasan mengenai penggunaan **ShadCN** yang Anda sebutkan. **ShadCN** (atau **ShadCN UI**) adalah sebuah toolkit untuk membangun antarmuka pengguna (UI) dengan komponen-komponen yang dapat disesuaikan dan dioptimalkan, biasanya berbasis **Tailwind CSS** dan digunakan bersama dengan framework seperti **Next.js**.
-
-Berikut adalah README yang diperbarui untuk proyek Anda dengan **Next.js**, **Bun.js**, dan **ShadCN**:
-
 ---
 
 # Template Next.js dengan Bun.js dan ShadCN
