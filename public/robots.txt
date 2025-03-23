@@ -1,0 +1,15 @@
+# Mencegah bot merayapi halaman yang tidak perlu
+User-agent: *
+# Disallow: /wp-admin/
+# Disallow: /search/
+# Disallow: /private/
+# Disallow: /cart/
+
+# Izinkan halaman yang penting diindeks
+Allow: /
+
+# Host utama
+Host: https://itsmachapter.com
+
+# Sitemap untuk membantu indexing
+Sitemap: https://itsmachapter.com/sitemap.xml
