@@ -9,7 +9,7 @@ export default function Home() {
         weight="bold"
         className="text-white"
       >
-        ITS MA Chapter 25
+        Your Team Name
       </Typography>
     </div>
   )

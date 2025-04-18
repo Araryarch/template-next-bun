@@ -9,7 +9,7 @@ User-agent: *
 Allow: /
 
 # Host utama
-Host: https://itsmachapter.com
+Host: https://yourdomain.com
 
 # Sitemap untuk membantu indexing
-Sitemap: https://itsmachapter.com/sitemap.xml
+Sitemap: https://yourdomain.com/sitemap.xml

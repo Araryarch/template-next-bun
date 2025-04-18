@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:strict": "next lint --max-warnings 0",
-    "prepare": "husky install",
+    "prepare": "husky",
     "format": "prettier --write . && eslint . --fix && pnpm typecheck && pnpm lint:strict",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
