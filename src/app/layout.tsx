@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning suppressContentEditableWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           rel="shortcut icon"
