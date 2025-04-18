@@ -3,7 +3,11 @@ module.exports = {
   '**/*.(ts|tsx)': () => 'bun run typecheck',
 
   // Lint & Prettify TS and JS files
-  '**/*.(ts|tsx|js)': () => ['bun run lint:strict', 'bun run format:write'],
+  '**/*.(ts|tsx|js)': () => [
+    'bun run lint:strict',
+    'bun run format:write',
+    'bun run build',
+  ],
 
   // Prettify only Markdown and JSON files
   '**/*.(md|json)': () => 'bun run format:write',

@@ -1,39 +1,25 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '@/lib/prisma'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  try {
-    switch (req.method) {
-      case 'GET':
-        const dashboardData = await prisma.user.findMany()
-        return res.status(200).json(dashboardData)
+export async function GET() {
+  return NextResponse.json(
+    {
+      message: 'Dashboard API endpoint',
+      status: 'success',
+      timestamp: new Date().toISOString(),
+    },
+    { status: 200 },
+  )
+}
 
-      case 'POST':
-        const newUser = await prisma.user.create({
-          data: req.body,
-        })
-        return res.status(201).json(newUser)
+export async function POST(req: NextRequest) {
+  const body = await req.json()
 
-      case 'PUT':
-        const updatedUser = await prisma.user.update({
-          where: { id: req.body.id },
-          data: req.body,
-        })
-        return res.status(200).json(updatedUser)
-
-      case 'DELETE':
-        const deletedUser = await prisma.user.delete({
-          where: { id: req.body.id },
-        })
-        return res.status(200).json(deletedUser)
-
-      default:
-        return res.status(405).json({ error: 'Method Not Allowed' })
-    }
-  } catch (error) {
-    return res.status(500).json({ error: error })
-  }
+  return NextResponse.json(
+    {
+      message: 'Data received',
+      data: body,
+      status: 'success',
+    },
+    { status: 201 },
+  )
 }

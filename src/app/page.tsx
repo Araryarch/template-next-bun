@@ -21,6 +21,11 @@ interface MousePosition {
   y: number
 }
 
+interface WindowDimensions {
+  width: number
+  height: number
+}
+
 // Custom hook for mouse parallax effect
 const useMousePosition = (): MousePosition => {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
@@ -33,11 +38,42 @@ const useMousePosition = (): MousePosition => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    // Only add event listener in client-side
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => window.removeEventListener('mousemove', handleMouseMove)
+    }
   }, [])
 
   return mousePosition
+}
+
+// Custom hook for window dimensions
+const useWindowDimensions = (): WindowDimensions => {
+  const [dimensions, setDimensions] = useState<WindowDimensions>({
+    width: 1,
+    height: 1,
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    // Only run in client-side
+    if (typeof window !== 'undefined') {
+      // Set initial dimensions
+      handleResize()
+
+      window.addEventListener('resize', handleResize)
+      return () => window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  return dimensions
 }
 
 // Custom text reveal effect component
@@ -71,6 +107,7 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll()
   const mousePosition = useMousePosition()
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions()
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [cursorVariant, setCursorVariant] = useState<'default' | 'button'>(
     'default',
@@ -210,15 +247,15 @@ export default function Home() {
           <motion.div
             className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/10 blur-3xl"
             style={{
-              x: useTransform(mouseX, [0, window.innerWidth || 1], [-20, 20]),
-              y: useTransform(mouseY, [0, window.innerHeight || 1], [-20, 20]),
+              x: useTransform(mouseX, [0, windowWidth], [-20, 20]),
+              y: useTransform(mouseY, [0, windowHeight], [-20, 20]),
             }}
           />
           <motion.div
             className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/10 blur-3xl"
             style={{
-              x: useTransform(mouseX, [0, window.innerWidth || 1], [20, -20]),
-              y: useTransform(mouseY, [0, window.innerHeight || 1], [20, -20]),
+              x: useTransform(mouseX, [0, windowWidth], [20, -20]),
+              y: useTransform(mouseY, [0, windowHeight], [20, -20]),
             }}
           />
 
@@ -327,16 +364,8 @@ export default function Home() {
           <motion.div
             className="absolute right-10 md:right-20 top-1/3 hidden md:block"
             style={{
-              rotateX: useTransform(
-                mouseY,
-                [0, window.innerHeight || 1],
-                [15, -15],
-              ),
-              rotateY: useTransform(
-                mouseX,
-                [0, window.innerWidth || 1],
-                [-15, 15],
-              ),
+              rotateX: useTransform(mouseY, [0, windowHeight], [15, -15]),
+              rotateY: useTransform(mouseX, [0, windowWidth], [-15, 15]),
               rotate: useTransform(scrollY, [0, 500], [0, 180]),
             }}
             initial={{ opacity: 0, scale: 0 }}
@@ -354,16 +383,8 @@ export default function Home() {
           <motion.div
             className="absolute left-10 md:left-20 bottom-1/3 hidden md:block"
             style={{
-              rotateX: useTransform(
-                mouseY,
-                [0, window.innerHeight || 1],
-                [15, -15],
-              ),
-              rotateY: useTransform(
-                mouseX,
-                [0, window.innerWidth || 1],
-                [-15, 15],
-              ),
+              rotateX: useTransform(mouseY, [0, windowHeight], [15, -15]),
+              rotateY: useTransform(mouseX, [0, windowWidth], [-15, 15]),
               rotate: useTransform(scrollY, [0, 500], [0, -180]),
             }}
             initial={{ opacity: 0, scale: 0 }}

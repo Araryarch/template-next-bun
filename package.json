@@ -12,7 +12,8 @@
     "format": "prettier --write . && eslint . --fix && pnpm typecheck && pnpm lint:strict",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -43,7 +44,9 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.7.4",
+    "lenis": "^1.2.3",
     "lucide-react": "^0.488.0",
+    "motion": "^12.7.4",
     "next": "15.2.0",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
