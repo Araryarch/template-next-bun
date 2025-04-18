@@ -32,14 +32,6 @@ Atau menggunakan Homebrew (untuk macOS atau Linux):
 brew install bun
 ```
 
-### Instalasi ShadCN
-
-Untuk menggunakan **ShadCN** dalam proyek ini, pastikan Anda menginstal dependensi yang diperlukan:
-
-```bash
-bun add @shadcn/ui tailwindcss
-```
-
 ## Instalasi
 
 Ikuti langkah-langkah berikut untuk memulai menggunakan template ini:
@@ -71,22 +63,6 @@ Ikuti langkah-langkah berikut untuk memulai menggunakan template ini:
 
    Akses aplikasi Anda di [http://localhost:3000](http://localhost:3000).
 
-## Struktur Proyek
-
-Berikut adalah struktur dasar dari proyek ini:
-
-```
-/template-next-bun
-├── /pages                 # Halaman Next.js
-├── /public                # Berkas statis (gambar, favicon, dll.)
-├── /styles                # File CSS atau SCSS
-├── /components            # Komponen React dan ShadCN UI
-├── /node_modules          # Modul-modul dependensi
-├── bun.lockb              # File lock Bun.js
-├── package.json           # Deskripsi proyek dan dependensi (jika menggunakan bun)
-└── next.config.js         # Konfigurasi Next.js
-```
-
 ## Penggunaan
 
 Template ini sudah dilengkapi dengan ShadCN UI, yang memungkinkan Anda untuk dengan mudah membangun antarmuka pengguna modern dengan Tailwind CSS. Berikut adalah beberapa hal yang bisa Anda lakukan:
@@ -102,20 +78,6 @@ ShadCN menyediakan berbagai komponen UI siap pakai yang bisa langsung Anda gunak
 - **Checkbox**
 - **Toast**
 
-Berikut contoh penggunaan komponen **Button** dari ShadCN:
-
-```tsx
-import { Button } from '@shadcn/ui';
-
-export default function Home() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Button variant="solid">Click Me</Button>
-    </div>
-  );
-}
-```
-
 ### 2. Menambahkan Halaman Baru
 
 Tambahkan file di dalam folder `pages` untuk membuat halaman baru. Misalnya, jika Anda ingin membuat halaman **About**, cukup buat file `about.tsx` di folder `pages`:
@@ -130,42 +92,6 @@ export default function About() {
     </div>
   );
 }
-```
-
-### 3. Menambahkan Komponen Baru
-
-Untuk menambahkan komponen baru, buat file di dalam folder `components`, misalnya `ButtonComponent.tsx`:
-
-```tsx
-// components/ButtonComponent.tsx
-import { Button } from '@shadcn/ui';
-
-export default function ButtonComponent() {
-  return <Button variant="outline">Outline Button</Button>;
-}
-```
-
-Kemudian impor komponen tersebut ke dalam halaman yang sesuai.
-
-### 4. Mengonfigurasi Tailwind CSS
-
-Tailwind CSS sudah terpasang secara otomatis bersama dengan ShadCN, sehingga Anda dapat mulai menulis kode CSS berbasis utility dengan mudah. Untuk menyesuaikan Tailwind CSS, buka file `tailwind.config.js` dan sesuaikan sesuai kebutuhan.
-
-Contoh konfigurasi Tailwind CSS:
-
-```js
-// tailwind.config.js
-module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@shadcn/ui/dist/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
 ```
 
 ## Menggunakan Bun.js
