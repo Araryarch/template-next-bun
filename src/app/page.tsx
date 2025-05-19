@@ -15,7 +15,6 @@ import {
 } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 
-// TypeScript interfaces
 interface MousePosition {
   x: number
   y: number
@@ -26,7 +25,6 @@ interface WindowDimensions {
   height: number
 }
 
-// Custom hook for mouse parallax effect
 const useMousePosition = (): MousePosition => {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
@@ -38,7 +36,6 @@ const useMousePosition = (): MousePosition => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
-    // Only add event listener in client-side
     if (typeof window !== 'undefined') {
       window.addEventListener('mousemove', handleMouseMove)
       return () => window.removeEventListener('mousemove', handleMouseMove)
@@ -48,7 +45,6 @@ const useMousePosition = (): MousePosition => {
   return mousePosition
 }
 
-// Custom hook for window dimensions
 const useWindowDimensions = (): WindowDimensions => {
   const [dimensions, setDimensions] = useState<WindowDimensions>({
     width: 1,
@@ -63,9 +59,7 @@ const useWindowDimensions = (): WindowDimensions => {
       })
     }
 
-    // Only run in client-side
     if (typeof window !== 'undefined') {
-      // Set initial dimensions
       handleResize()
 
       window.addEventListener('resize', handleResize)
@@ -76,7 +70,6 @@ const useWindowDimensions = (): WindowDimensions => {
   return dimensions
 }
 
-// Custom text reveal effect component
 const CharacterReveal: React.FC<{
   text: string
   delay?: number
@@ -102,7 +95,6 @@ const CharacterReveal: React.FC<{
   )
 }
 
-// Main component
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollY } = useScroll()
@@ -113,20 +105,16 @@ export default function Home() {
     'default',
   )
 
-  // Create motion values for mouse position
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  // Update mouse motion values when mouse position changes
   useEffect(() => {
     mouseX.set(mousePosition.x)
     mouseY.set(mousePosition.y)
   }, [mousePosition, mouseX, mouseY])
 
-  // Parallax values
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
-  // Mouse follow for cursor
   const cursorX = useMotionValue(-100)
   const cursorY = useMotionValue(-100)
 
@@ -134,13 +122,11 @@ export default function Home() {
   const cursorXSpring = useSpring(cursorX, springConfig)
   const cursorYSpring = useSpring(cursorY, springConfig)
 
-  // Update cursor position
   useEffect(() => {
     cursorX.set(mousePosition.x)
     cursorY.set(mousePosition.y)
   }, [mousePosition, cursorX, cursorY])
 
-  // Delayed load animation
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 500)
     return () => clearTimeout(timer)
@@ -149,7 +135,6 @@ export default function Home() {
   const enterButton = () => setCursorVariant('button')
   const leaveButton = () => setCursorVariant('default')
 
-  // Fixed cursor variants properly typed for Framer Motion
   const cursorVariants: Variants = {
     default: {
       width: 32,
@@ -165,7 +150,6 @@ export default function Home() {
     },
   }
 
-  // Cursor style with motion values
   const cursorStyle: MotionStyle = {
     translateX: '-50%',
     translateY: '-50%',
@@ -175,7 +159,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Custom cursor */}
       <motion.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-50 backdrop-blur-sm hidden md:block"
         variants={cursorVariants}
@@ -183,7 +166,6 @@ export default function Home() {
         style={cursorStyle}
       />
 
-      {/* Loading overlay */}
       <AnimatePresence>
         {!isLoaded && (
           <motion.div
@@ -203,9 +185,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Main hero section */}
       <div className="relative overflow-hidden bg-black" ref={containerRef}>
-        {/* Video background with overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black z-10" />
           <video
@@ -219,7 +199,6 @@ export default function Home() {
           </video>
         </div>
 
-        {/* Dynamic noise texture overlay */}
         <motion.div
           className="absolute inset-0 z-10 mix-blend-overlay opacity-30"
           style={{
@@ -238,12 +217,10 @@ export default function Home() {
           }}
         />
 
-        {/* Main content */}
         <motion.div
           className="relative z-20 flex flex-col justify-center items-center w-full min-h-screen px-4 py-16 md:py-0 max-w-7xl mx-auto"
           style={{ opacity }}
         >
-          {/* Floating elements that follow mouse */}
           <motion.div
             className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/10 blur-3xl"
             style={{
@@ -259,7 +236,6 @@ export default function Home() {
             }}
           />
 
-          {/* Main text content */}
           <div className="text-center space-y-8 max-w-5xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -360,7 +336,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* 3D rotating object */}
           <motion.div
             className="absolute right-10 md:right-20 top-1/3 hidden md:block"
             style={{
@@ -379,7 +354,6 @@ export default function Home() {
             <div className="w-32 h-32 bg-gradient-to-br from-blue-500/30 to-purple-500/30 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl"></div>
           </motion.div>
 
-          {/* Another 3D object */}
           <motion.div
             className="absolute left-10 md:left-20 bottom-1/3 hidden md:block"
             style={{
@@ -399,7 +373,6 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* Split line reveal animation */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent"
           initial={{ scaleX: 0, opacity: 0 }}
