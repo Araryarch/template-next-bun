@@ -12,7 +12,7 @@
     "format": "prettier --write . && eslint . --fix && pnpm typecheck && pnpm lint:strict",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
